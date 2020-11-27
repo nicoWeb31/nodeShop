@@ -19,12 +19,18 @@ exports.getOneProduct= (req, res, next) => {
 
     res.render('shop/product-detail', {
       product,
-      pageTitle: `${product.name}`,
-      path: '/product-detail'
+      pageTitle:product.title,
+      path: '/products'
     })
 
   })
 
+}
+
+exports.postCart= (req, res, next) => {
+  const prodId = req.body.productId;
+  console.log("🚀 ~ file: shop.js ~ line 32 ~ prodId", prodId)
+  res.redirect(req.originalUrl)
 }
 
 exports.getIndex = (req, res, next) => {
