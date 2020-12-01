@@ -48,6 +48,8 @@ module.exports = class Product {
         //     });
         //   }
         // });
+
+        db.execute('INSERT INTO prioducts (title, price,description,imgUrl) VALUES(?,?,?,?)',[this.title,this.price,this.description,this.imageUrl]);
     }
 
     static deleteById(id) {
@@ -60,6 +62,12 @@ module.exports = class Product {
         //     }
         //   });
         // });
+        //WITH SQL BD
+        try {
+            
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     static fetchAll () {
@@ -78,6 +86,16 @@ module.exports = class Product {
             return products
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    static findById(id){
+        try {
+            
+            return db.execute('SELECT * FROM prioducts WHERE prioducts.id = ?', [id])
+
+        } catch (error) {
+            
         }
     }
 };
