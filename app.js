@@ -1,5 +1,5 @@
 const path = require('path');
-const mongoConnect = require('./util/database')
+const {mongoConnect} = require('./util/database')
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -15,9 +15,6 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 
-//ROUTE
-// const adminRoutes = require('./routes/admin');
-// const shopRoutes = require('./routes/shop');
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -25,20 +22,22 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use((req, res, next) => {
-//     // User.findByPk(1)
-//     //     .then(user => {
-//     //         req.user = user;
-//     //         next();
-//     //     })
-//     //     .catch(err => console.log(err));
-// });
+    //     // User.findByPk(1)
+    //     //     .then(user => {
+        //     //         req.user = user;
+        //     //         next();
+        //     //     })
+        //     //     .catch(err => console.log(err));
+        // });
 
-// app.use('/admin', adminRoutes);
-// app.use(shopRoutes);
+
+
+//ROUTE
+app.use('/admin', require('./routes/admin'));
+app.use(require('./routes/shop'));
 
 app.use(errorController.get404);
 
-mongoConnect((client)=>{
-    console.log(client)
+mongoConnect(()=>{
     app.listen(3000)
 })
