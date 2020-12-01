@@ -1,14 +1,15 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
 
-exports.getProducts = (req, res, next) => {
-  Product.fetchAll(products => {
+exports.getProducts = async(req, res, next) => {
+    const [rows, fieldsData] = await Product.fetchAll();
+    
+    
     res.render('shop/product-list', {
-      prods: products,
+      prods: rows,
       pageTitle: 'All Products',
       path: '/products'
     });
-  });
 };
 
 exports.getProduct = (req, res, next) => {
